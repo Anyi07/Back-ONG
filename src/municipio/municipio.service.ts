@@ -1,26 +1,41 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMunicipioDto } from './dto/create-municipio.dto';
 import { UpdateMunicipioDto } from './dto/update-municipio.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Municipio } from './entities/municipio.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class MunicipioService {
-  create(createMunicipioDto: CreateMunicipioDto) {
-    return 'This action adds a new municipio';
-  }
 
-  findAll() {
-    return `This action returns all municipio`;
-  }
+  constructor(@InjectRepository(Municipio)private municipioRepository:Repository<Municipio> ){}
 
-  findOne(id: number) {
-    return `This action returns a #${id} municipio`;
-  }
 
-  update(id: number, updateMunicipioDto: UpdateMunicipioDto) {
-    return `This action updates a #${id} municipio`;
-  }
+  createMunicipio(municipio: CreateMunicipioDto) {
+      
+    const newMunicipio= this.municipioRepository.create(municipio)
+      return this.municipioRepository.save(newMunicipio);
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} municipio`;
-  }
+   async getMunicipios(){
+      const municipio = this.municipioRepository.createQueryBuilder('municipio').leftJoinAndSelect("municipio.estado","es")
+
+      return await municipio.getMany()
+    }
+
+    getMunicipio(id: number) {
+      return this.municipioRepository.findOne({
+          where:{
+              id
+          }
+      });
+    }
+
+    updateMunicipio(id: number,municipio:UpdateMunicipioDto ) {
+      return this.municipioRepository.update({id},municipio);
+    }
+
+    deleteMunicipio(id: number) {
+      return this.municipioRepository.delete({id});
+    }
 }

@@ -1,26 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRegisterDto } from './dto/create-register.dto';
 import { UpdateRegisterDto } from './dto/update-register.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Register } from './entities/register.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class RegisterService {
-  create(createRegisterDto: CreateRegisterDto) {
-    return 'This action adds a new register';
-  }
 
-  findAll() {
-    return `This action returns all register`;
-  }
+  constructor(@InjectRepository(Register) private registerRepositorio:Repository<Register>){}
 
-  findOne(id: number) {
-    return `This action returns a #${id} register`;
-  }
+  createRegister(register: CreateRegisterDto) {
+    
+      const newRegister= this.registerRepositorio.create(register)
+        return this.registerRepositorio.save(newRegister);
+      }
 
-  update(id: number, updateRegisterDto: UpdateRegisterDto) {
-    return `This action updates a #${id} register`;
-  }
+    async  getRegisters(){
+        const register = this.registerRepositorio.createQueryBuilder('register').leftJoinAndSelect("register.project","res")
 
-  remove(id: number) {
-    return `This action removes a #${id} register`;
-  }
+        return await register.getMany()
+      }
+    
+      getRegister(id: number) {
+        return this.registerRepositorio.findOne({
+            where:{
+                id
+            }
+        });
+      }
+
+    
+    
+      updateRegister(id: number,register:UpdateRegisterDto ) {
+        return this.registerRepositorio.update({id},register);
+      }
+    
+        deleteRegister(id: number) {
+        return this.registerRepositorio.delete({id});
+      }
 }

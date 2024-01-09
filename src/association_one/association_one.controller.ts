@@ -1,34 +1,40 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,ParseIntPipe } from '@nestjs/common';
 import { AssociationOneService } from './association_one.service';
 import { CreateAssociationOneDto } from './dto/create-association_one.dto';
 import { UpdateAssociationOneDto } from './dto/update-association_one.dto';
+import { AssociationOne } from './entities/association_one.entity';
 
 @Controller('association-one')
 export class AssociationOneController {
   constructor(private readonly associationOneService: AssociationOneService) {}
 
-  @Post()
-  create(@Body() createAssociationOneDto: CreateAssociationOneDto) {
-    return this.associationOneService.create(createAssociationOneDto);
-  }
-
   @Get()
-  findAll() {
-    return this.associationOneService.findAll();
+  getAssociationOnes():Promise<AssociationOne[]>{
+      return this.associationOneService.getAssociationOnes();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.associationOneService.findOne(+id);
+  getAssociationOne(@Param('id',ParseIntPipe) id: number):Promise<AssociationOne>{
+      console.log(id)
+      console.log(typeof id)
+      return this.associationOneService.getAssociationOne(id);
+  }
+
+  @Post()
+  createAssociationOne(@Body()newAssociationOne:CreateAssociationOneDto): Promise<AssociationOne>{
+  return this.associationOneService.createAssociationOne(newAssociationOne);
+}
+
+
+  @Delete(':id')
+  deleteAssociationOne(@Param('id',ParseIntPipe) id:number){
+  return this.associationOneService.deleteAssociationOne(id)
+
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAssociationOneDto: UpdateAssociationOneDto) {
-    return this.associationOneService.update(+id, updateAssociationOneDto);
-  }
+  updateAssociationOne(@Param('id',ParseIntPipe) id:number,@Body()association_one: UpdateAssociationOneDto){
+      return this.associationOneService.updateAssociationOne(id, association_one)
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.associationOneService.remove(+id);
   }
 }

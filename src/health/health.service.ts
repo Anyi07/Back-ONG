@@ -1,26 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { CreateHealthDto } from './dto/create-health.dto';
 import { UpdateHealthDto } from './dto/update-health.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Health } from './entities/health.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class HealthService {
-  create(createHealthDto: CreateHealthDto) {
-    return 'This action adds a new health';
-  }
+  
+  constructor(@InjectRepository(Health)private healthRepository:Repository<Health> ){}
+    
+  createHealth(health: CreateHealthDto) {
+    
+    const newHealth= this.healthRepository.create(health)
+      return this.healthRepository.save(newHealth);
+    }
 
-  findAll() {
-    return `This action returns all health`;
-  }
+    async getHealths(){
+      const health = this.healthRepository.createQueryBuilder('healt').leftJoinAndSelect("healt.project","hl")
 
-  findOne(id: number) {
-    return `This action returns a #${id} health`;
-  }
+      return await health.getMany()
+    }
+  
+    async getHealth(id: number) {
+      return this.healthRepository.findOne({
+          where:{
+              id
+          }
+      });
+    }
 
-  update(id: number, updateHealthDto: UpdateHealthDto) {
-    return `This action updates a #${id} health`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} health`;
-  }
+  
+  
+    updateHealth(id: number,health:UpdateHealthDto ) {
+      return this.healthRepository.update({id},health);
+    }
+  
+      deleteHealth(id: number) {
+      return this.healthRepository.delete({id});
+    }
 }

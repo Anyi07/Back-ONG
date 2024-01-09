@@ -1,13 +1,18 @@
 import { register } from 'module';
 import { AssociationTwo } from 'src/association-two/entities/association-two.entity';
 import { AssociationOne } from 'src/association_one/entities/association_one.entity';
+import { BaseEntity } from 'src/base-entity';
+import { Education } from 'src/education/entities/education.entity';
+import { FoodSafety } from 'src/food_safety/entities/food_safety.entity';
+import { Health } from 'src/health/entities/health.entity';
 import { Parroquia } from 'src/parroquia/entities/parroquia.entity';
 import { Register } from 'src/register/entities/register.entity';
-import{Entity,Column,PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOne} from 'typeorm'
+import { Sanitation } from 'src/sanitation/entities/sanitation.entity';
+import{Entity,Column,PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOne, ManyToMany, OneToOne} from 'typeorm'
 
 @Entity('project')
 
-export class Project {
+export class Project extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     id:number;
@@ -27,11 +32,6 @@ export class Project {
     @Column({type:"float"})
     longitude:number;
 
-    @Column({type:"date"})
-    startDate:Date;
-
-    @Column({type:"date"})
-    finishDate:Date;
 
     @Column({type:"int"})
     indirectBenef:number;
@@ -69,4 +69,20 @@ export class Project {
     associationTwo:AssociationTwo[];
 
     
+    @OneToOne(type => FoodSafety, foodSafety => foodSafety.project)
+    @JoinColumn()
+    foodSafety:FoodSafety[]; 
+
+    @OneToOne(type => Education, education=> education.project)
+    @JoinColumn()
+    education:Education[]; 
+
+    @OneToOne(type => Health, health=>health.project)
+    @JoinColumn()
+    health:Health[]; 
+
+    @OneToOne(type => Sanitation, sanitation=>sanitation.project)
+    @JoinColumn()
+    sanitation:Sanitation[]; 
+
 }

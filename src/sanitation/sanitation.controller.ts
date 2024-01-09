@@ -1,34 +1,40 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,ParseIntPipe } from '@nestjs/common';
 import { SanitationService } from './sanitation.service';
 import { CreateSanitationDto } from './dto/create-sanitation.dto';
 import { UpdateSanitationDto } from './dto/update-sanitation.dto';
+import { Sanitation } from './entities/sanitation.entity';
 
 @Controller('sanitation')
 export class SanitationController {
   constructor(private readonly sanitationService: SanitationService) {}
 
-  @Post()
-  create(@Body() createSanitationDto: CreateSanitationDto) {
-    return this.sanitationService.create(createSanitationDto);
-  }
-
   @Get()
-  findAll() {
-    return this.sanitationService.findAll();
+    getSanitations():Promise<Sanitation[]>{
+        return this.sanitationService.getSanitations();
+    }
+
+    @Get(':id')
+    getSanitation(@Param('id',ParseIntPipe) id: number):Promise<Sanitation>{
+        console.log(id)
+        console.log(typeof id)
+        return this.sanitationService.getSanitation(id);
+    }
+
+    @Post()
+    createSanitation(@Body()newSanitation:CreateSanitationDto): Promise<Sanitation>{
+    return this.sanitationService.createSanitation(newSanitation);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.sanitationService.findOne(+id);
-  }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSanitationDto: UpdateSanitationDto) {
-    return this.sanitationService.update(+id, updateSanitationDto);
-  }
+    @Delete(':id')
+    deleteSanitation(@Param('id',ParseIntPipe) id:number){
+    return this.sanitationService.deleteSanitation(id)
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.sanitationService.remove(+id);
-  }
+    }
+
+    @Patch(':id')
+    updateSanitation(@Param('id',ParseIntPipe) id:number,@Body() sanitation: UpdateSanitationDto){
+        return this.sanitationService.updateSanitation(id, sanitation)
+
+    }
 }

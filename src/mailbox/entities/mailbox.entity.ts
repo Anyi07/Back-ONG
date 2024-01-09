@@ -1,8 +1,9 @@
 import { AssociationOne } from 'src/association_one/entities/association_one.entity';
+import { BaseEntity } from 'src/base-entity';
 import{Entity,Column,PrimaryGeneratedColumn, OneToMany, JoinColumn} from 'typeorm'
 
 @Entity('mailbox')
-export class Mailbox {
+export class Mailbox extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     id:number;

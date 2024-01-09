@@ -1,13 +1,13 @@
-import{Entity,Column,PrimaryGeneratedColumn, PrimaryColumn} from 'typeorm'
+import { BaseEntity } from 'src/base-entity';
+import { Project } from 'src/project/entities/project.entity';
+import{Entity,Column,PrimaryGeneratedColumn, PrimaryColumn, OneToOne, JoinColumn} from 'typeorm'
 
 @Entity('health')
-export class Health {
+export class Health extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id:number;
 
-    @Column({type:"date"})
-    healthReport:Date;
 
     @Column({type:"int"})
     girls0to5:number;
@@ -34,6 +34,9 @@ export class Health {
     womenOlderThan65:number;
 
 
+    @OneToOne(type => Project, project => project.health)
+    @JoinColumn()
+    project:Project[];
 
 
 

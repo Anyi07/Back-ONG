@@ -1,26 +1,43 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSanitationDto } from './dto/create-sanitation.dto';
 import { UpdateSanitationDto } from './dto/update-sanitation.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Sanitation } from './entities/sanitation.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class SanitationService {
-  create(createSanitationDto: CreateSanitationDto) {
-    return 'This action adds a new sanitation';
-  }
 
-  findAll() {
-    return `This action returns all sanitation`;
-  }
+  constructor(@InjectRepository(Sanitation)private sanitationRepository:Repository<Sanitation> ){}
+    
+  createSanitation(sanitation: CreateSanitationDto) {
+    
+    const newSanitation= this.sanitationRepository.create(sanitation)
+      return this.sanitationRepository.save(newSanitation);
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} sanitation`;
-  }
+    async getSanitations(){
+      const sanitation = this.sanitationRepository.createQueryBuilder('sanitation').leftJoinAndSelect("sanitation.project","sn")
 
-  update(id: number, updateSanitationDto: UpdateSanitationDto) {
-    return `This action updates a #${id} sanitation`;
-  }
+      return await sanitation.getMany()
+      
+    }
+  
+    async getSanitation(id: number) {
+      return this.sanitationRepository.findOne({
+          where:{
+              id
+          }
+      });
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} sanitation`;
-  }
+  
+  
+    updateSanitation(id: number,sanitation:UpdateSanitationDto ) {
+      return this.sanitationRepository.update({id},sanitation);
+    }
+  
+      deleteSanitation(id: number) {
+      return this.sanitationRepository.delete({id});
+    }
 }

@@ -10,23 +10,34 @@ export class MailboxService {
 
 
 
-  create(createMailboxDto: CreateMailboxDto) {
-    return 'This action adds a new mailbox';
-  }
+  constructor(@InjectRepository(Mailbox)private mailboxRepository:Repository<Mailbox> ){}
+    
+  createMailbox(mailbox: CreateMailboxDto) {
+    
+    const newMailbox= this.mailboxRepository.create(mailbox)
+      return this.mailboxRepository.save(newMailbox);
+    }
 
-  findAll() {
-    return `This action returns all mailbox`;
-  }
+    async getMailboxs(){
+      return this.mailboxRepository.find()
+      
+    }
+  
+    async getMailbox(id: number) {
+      return this.mailboxRepository.findOne({
+          where:{
+              id
+          }
+      });
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} mailbox`;
-  }
-
-  update(id: number, updateMailboxDto: UpdateMailboxDto) {
-    return `This action updates a #${id} mailbox`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} mailbox`;
-  }
+  
+  
+    updateMailbox(id: number,mailbox:UpdateMailboxDto ) {
+      return this.mailboxRepository.update({id},mailbox);
+    }
+  
+      deleteMailbox(id: number) {
+      return this.mailboxRepository.delete({id});
+    }
 }

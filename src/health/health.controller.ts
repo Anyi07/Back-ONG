@@ -1,34 +1,42 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,ParseIntPipe } from '@nestjs/common';
 import { HealthService } from './health.service';
 import { CreateHealthDto } from './dto/create-health.dto';
 import { UpdateHealthDto } from './dto/update-health.dto';
+import { Health } from './entities/health.entity';
 
 @Controller('health')
 export class HealthController {
+    
   constructor(private readonly healthService: HealthService) {}
 
-  @Post()
-  create(@Body() createHealthDto: CreateHealthDto) {
-    return this.healthService.create(createHealthDto);
-  }
-
   @Get()
-  findAll() {
-    return this.healthService.findAll();
+  getHealths():Promise<Health[]>{
+      return this.healthService.getHealths();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.healthService.findOne(+id);
-  }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateHealthDto: UpdateHealthDto) {
-    return this.healthService.update(+id, updateHealthDto);
-  }
+@Get(':id')
+getHealth(@Param('id',ParseIntPipe) id: number):Promise<Health>{
+    console.log(id)
+    console.log(typeof id)
+    return this.healthService.getHealth(id);
+}
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.healthService.remove(+id);
-  }
+@Post()
+createHealth(@Body()newHealth:CreateHealthDto): Promise<Health>{
+return this.healthService.createHealth(newHealth);
+}
+
+
+@Delete(':id')
+deleteHealth(@Param('id',ParseIntPipe) id:number){
+return this.healthService.deleteHealth(id)
+
+}
+
+@Patch(':id')
+updateHealth(@Param('id',ParseIntPipe) id:number,@Body() health: UpdateHealthDto){
+    return this.healthService.updateHealth(id, health)
+
+}
 }

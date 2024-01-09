@@ -1,26 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { CreateParroquiaDto } from './dto/create-parroquia.dto';
 import { UpdateParroquiaDto } from './dto/update-parroquia.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Parroquia } from './entities/parroquia.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ParroquiaService {
-  create(createParroquiaDto: CreateParroquiaDto) {
-    return 'This action adds a new parroquia';
-  }
 
-  findAll() {
-    return `This action returns all parroquia`;
-  }
+  constructor(@InjectRepository(Parroquia)private parroquiaRepository:Repository<Parroquia> ){}
 
-  findOne(id: number) {
-    return `This action returns a #${id} parroquia`;
-  }
+  createParroquia(parroquia: CreateParroquiaDto) {
+      
+    const newParroquia= this.parroquiaRepository.create(parroquia)
+      return this.parroquiaRepository.save(newParroquia);
+    }
 
-  update(id: number, updateParroquiaDto: UpdateParroquiaDto) {
-    return `This action updates a #${id} parroquia`;
-  }
+ async   getParroquias(){
+      const parroquia = this.parroquiaRepository.createQueryBuilder('parroquia').leftJoinAndSelect("parroquia.municipio","mu")
 
-  remove(id: number) {
-    return `This action removes a #${id} parroquia`;
-  }
+      return await parroquia.getMany()
+    }
+
+    getParroquia(id: number) {
+      return this.parroquiaRepository.findOne({
+          where:{
+              id
+          }
+      });
+    }
+
+    updateParroquia(id: number,parroquia:UpdateParroquiaDto) {
+      return this.parroquiaRepository.update({id},parroquia);
+    }
+
+    deleteParroquia(id: number) {
+      return this.parroquiaRepository.delete({id});
+    }
+
+
 }

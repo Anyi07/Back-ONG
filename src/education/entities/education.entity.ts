@@ -1,13 +1,12 @@
-import{Entity,Column,PrimaryGeneratedColumn, PrimaryColumn} from 'typeorm'
+import { BaseEntity } from 'src/base-entity';
+import { Project } from 'src/project/entities/project.entity';
+import{Entity,Column,PrimaryGeneratedColumn, PrimaryColumn, OneToOne, JoinColumn} from 'typeorm'
 
 @Entity('education')
-export class Education {
+export class Education extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id:number;
-
-    @Column({type:"date"})
-    educationReport:Date;
 
     @Column({type:"int"})
     girls0to2E:number;
@@ -50,8 +49,11 @@ export class Education {
 
     @Column({type:"int"})
     womenOlderThan60E:number;
+    
 
-
+    @OneToOne(type => Project, project => project.education)
+    @JoinColumn()
+    project:Project[];
 
     
     

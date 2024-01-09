@@ -1,26 +1,43 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEducationDto } from './dto/create-education.dto';
 import { UpdateEducationDto } from './dto/update-education.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Education } from './entities/education.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class EducationService {
-  create(createEducationDto: CreateEducationDto) {
-    return 'This action adds a new education';
-  }
 
-  findAll() {
-    return `This action returns all education`;
-  }
+  constructor(@InjectRepository(Education)private educationRepository:Repository<Education> ){}
+    
+  createEducation(education: CreateEducationDto) {
+    
+    const newEducation= this.educationRepository.create(education)
+      return this.educationRepository.save(newEducation);
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} education`;
-  }
+    async getEducations(){
+      const education = this.educationRepository.createQueryBuilder('education').leftJoinAndSelect("education.project","edc")
 
-  update(id: number, updateEducationDto: UpdateEducationDto) {
-    return `This action updates a #${id} education`;
-  }
+      return await education.getMany()
+      
+    }
+  
+    async getEducation(id: number) {
+      return this.educationRepository.findOne({
+          where:{
+              id
+          }
+      });
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} education`;
-  }
+  
+  
+    updateEducation(id: number,education:UpdateEducationDto ) {
+      return this.educationRepository.update({id},education);
+    }
+  
+      deleteEducation(id: number) {
+      return this.educationRepository.delete({id});
+    }
 }

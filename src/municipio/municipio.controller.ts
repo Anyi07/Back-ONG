@@ -1,34 +1,40 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
 import { MunicipioService } from './municipio.service';
 import { CreateMunicipioDto } from './dto/create-municipio.dto';
 import { UpdateMunicipioDto } from './dto/update-municipio.dto';
+import { Municipio } from './entities/municipio.entity';
 
 @Controller('municipio')
 export class MunicipioController {
   constructor(private readonly municipioService: MunicipioService) {}
 
   @Post()
-  create(@Body() createMunicipioDto: CreateMunicipioDto) {
-    return this.municipioService.create(createMunicipioDto);
-  }
+  createMunicipio(@Body()newMunicipio:CreateMunicipioDto): Promise<Municipio>{
+  return this.municipioService.createMunicipio(newMunicipio);
+}
 
-  @Get()
-  findAll() {
-    return this.municipioService.findAll();
-  }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.municipioService.findOne(+id);
-  }
+@Get()
+getMunicipios():Promise<Municipio[]>{
+    return this.municipioService.getMunicipios();
+}
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMunicipioDto: UpdateMunicipioDto) {
-    return this.municipioService.update(+id, updateMunicipioDto);
-  }
+@Get(':id')
+getMunicipio(@Param('id',ParseIntPipe) id: number):Promise<Municipio>{
+    console.log(id)
+    console.log(typeof id)
+    return this.municipioService.getMunicipio(id);
+}
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.municipioService.remove(+id);
-  }
+@Patch(':id')
+updateMunicipio(@Param('id',ParseIntPipe) id:number,@Body() municipio: UpdateMunicipioDto){
+    return this.municipioService.updateMunicipio(id, municipio)
+
+}
+
+@Delete(':id')
+deleteMunicipio(@Param('id',ParseIntPipe) id:number){
+return this.municipioService.deleteMunicipio(id)
+
+}
 }

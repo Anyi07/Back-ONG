@@ -1,16 +1,17 @@
+import { AssociationOne } from "src/association_one/entities/association_one.entity";
+import { BaseEntity } from "src/base-entity";
 import { User } from "src/users/user.entity";
-import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity('persons')
-export class Person {
+export class Person extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     id:number
 
-    @PrimaryColumn()
+    @PrimaryColumn({unique:true, type:"varchar"})
     cedula:number
 
-    
     @Column({type:"varchar" ,length: 25, })
     first_name: string
 
@@ -27,5 +28,8 @@ export class Person {
     @JoinColumn()
     users:User;
 
+    @OneToMany(type => AssociationOne, association_one => association_one.persons)
+    @JoinColumn()
+    association_one:AssociationOne[]; 
 
 }

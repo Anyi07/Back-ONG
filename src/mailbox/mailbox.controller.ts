@@ -1,34 +1,41 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,ParseIntPipe } from '@nestjs/common';
 import { MailboxService } from './mailbox.service';
 import { CreateMailboxDto } from './dto/create-mailbox.dto';
 import { UpdateMailboxDto } from './dto/update-mailbox.dto';
+import { Mailbox } from './entities/mailbox.entity';
 
 @Controller('mailbox')
 export class MailboxController {
   constructor(private readonly mailboxService: MailboxService) {}
 
-  @Post()
-  create(@Body() createMailboxDto: CreateMailboxDto) {
-    return this.mailboxService.create(createMailboxDto);
-  }
-
   @Get()
-  findAll() {
-    return this.mailboxService.findAll();
+    getMailboxs():Promise<Mailbox[]>{
+        return this.mailboxService.getMailboxs();
+    }
+
+    @Get(':id')
+    getMailbox(@Param('id',ParseIntPipe) id: number):Promise<Mailbox>{
+        console.log(id)
+        console.log(typeof id)
+        return this.mailboxService.getMailbox(id);
+    }
+
+    @Post()
+    createMailbox(@Body()newMailbox:CreateMailboxDto): Promise<Mailbox>{
+    return this.mailboxService.createMailbox(newMailbox);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.mailboxService.findOne(+id);
-  }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMailboxDto: UpdateMailboxDto) {
-    return this.mailboxService.update(+id, updateMailboxDto);
-  }
+    @Delete(':id')
+    deleteMailbox(@Param('id',ParseIntPipe) id:number){
+    return this.mailboxService.deleteMailbox(id)
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.mailboxService.remove(+id);
-  }
+    }
+
+    @Patch(':id')
+    updateMAilbox(@Param('id',ParseIntPipe) id:number,@Body() mailbox: UpdateMailboxDto){
+        return this.mailboxService.updateMailbox(id, mailbox)
+
+    }
+
 }

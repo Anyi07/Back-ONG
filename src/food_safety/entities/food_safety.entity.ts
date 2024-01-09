@@ -1,14 +1,14 @@
-import{Entity,Column,PrimaryGeneratedColumn, PrimaryColumn} from 'typeorm'
+import { BaseEntity } from 'src/base-entity';
+import { Project } from 'src/project/entities/project.entity';
+import{Entity,Column,PrimaryGeneratedColumn, PrimaryColumn, ManyToOne, JoinColumn, ManyToMany, OneToMany, OneToOne} from 'typeorm'
 
 @Entity('foodSafety')
 
-export class FoodSafety {
+export class FoodSafety extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     id:number;
     
-    @Column({type:"date"})
-    sanitationReport:Date;
 
     @Column({type:"int"})
     girls0to17F:number;
@@ -29,6 +29,10 @@ export class FoodSafety {
     @Column({type:"int"})
     womenOlderThan60F:number;
     
+
+    @OneToOne(type => Project, project => project.foodSafety)
+    @JoinColumn()
+    project:Project[];
 
 
 
