@@ -2,8 +2,8 @@ import { AssociationTwo } from 'src/association-two/entities/association-two.ent
 import { AssociationOne } from 'src/association_one/entities/association_one.entity';
 import { Person } from 'src/persons/person.entity';
 import { Role } from 'src/roles/entities/role.entity';
-import {Entity,Column,PrimaryGeneratedColumn, BaseEntity, OneToMany, JoinColumn, OneToOne} from 'typeorm'
-
+import {Entity,Column,PrimaryGeneratedColumn, BaseEntity, OneToMany, JoinColumn, OneToOne, BeforeInsert} from 'typeorm'
+import * as bcrypt from 'bcrypt';
 
 @Entity('users')
 
@@ -36,4 +36,15 @@ export class User extends BaseEntity
     @JoinColumn()
     role:Role;
 
+    @BeforeInsert()
+    async hashPassword() {
+      const salt = await bcrypt.genSalt();
+      this.password = await bcrypt.hash(this.password, salt);
+    }
+  
+    async validatePassword(password: string): Promise<boolean> {
+      return await bcrypt.compareSync(password, this.password);
+    }
+
+    
 }

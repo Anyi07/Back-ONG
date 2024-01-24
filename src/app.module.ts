@@ -18,6 +18,8 @@ import { EducationModule } from './education/education.module';
 import { AssociationOneModule } from './association_one/association_one.module';
 import { AssociationTwoModule } from './association-two/association-two.module';
 import { RolesModule } from './roles/roles.module';
+import { AuthModule } from './auth/auth.module';
+import { NestFactory } from '@nestjs/core';
 
 @Module({
   imports: [ TypeOrmModule.forRoot(config),
@@ -35,8 +37,11 @@ import { RolesModule } from './roles/roles.module';
     EducationModule,
     AssociationOneModule,
     AssociationTwoModule,
-    RolesModule],
+    RolesModule,
+    AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
+
 export class AppModule {}
+

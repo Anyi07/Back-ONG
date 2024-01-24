@@ -1,6 +1,12 @@
+import { IsString} from "class-validator"
+
 export class createUserDto{
-email:string
-password:string
+
+    @IsString()
+    readonly email:string;
+
+    @IsString()
+    readonly password:string;
 
 
 }

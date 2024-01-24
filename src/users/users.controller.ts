@@ -6,6 +6,7 @@ import { promises } from 'dns';
 import { threadId } from 'worker_threads';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+
 @Controller('users')
 export class UsersController {
 
@@ -30,6 +31,10 @@ export class UsersController {
     return this.usersService.createUser(newUser);
   }
 
+  @Post('/register')
+  async signUp(@Body() createUserDto: createUserDto): Promise<User>{
+    return this.usersService.createUser(createUserDto);
+  }
 
     @Delete(':id')
     deleteUSer(@Param('id',ParseIntPipe) id:number){

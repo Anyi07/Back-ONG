@@ -12,7 +12,7 @@ import{Entity,Column,PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOne, M
 
 @Entity('project')
 
-export class Project extends BaseEntity{
+export class Project {
 
     @PrimaryGeneratedColumn()
     id:number;
@@ -31,7 +31,6 @@ export class Project extends BaseEntity{
 
     @Column({type:"float"})
     longitude:number;
-
 
     @Column({type:"int"})
     indirectBenef:number;

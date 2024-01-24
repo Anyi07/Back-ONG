@@ -9,7 +9,7 @@ export class Person extends BaseEntity{
     @PrimaryGeneratedColumn()
     id:number
 
-    @PrimaryColumn({unique:true, type:"varchar"})
+    @Column({unique:true, type:"varchar"})
     cedula:number
 
     @Column({type:"varchar" ,length: 25, })

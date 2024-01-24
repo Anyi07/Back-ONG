@@ -16,6 +16,7 @@ export class UsersService {
         return this.userRepository.save(newUser);
       }
 
+
       async getUsers(){
         const user = this.userRepository.createQueryBuilder('user').leftJoinAndSelect("user.persons","ps").leftJoinAndSelect("user.role","rs")
                                                                   
@@ -33,8 +34,14 @@ export class UsersService {
         });
       }
 
+      async create(createUserDto: createUserDto) {
+        return await this.userRepository.save(createUserDto);
+      }
     
-    
+      async findOneByEmail(email: string) {
+        return await this.userRepository.findOneBy({ email });
+      }
+
       updateUser(id: number,user:UpdateUserDto ) {
         return this.userRepository.update({id},user);
       }
