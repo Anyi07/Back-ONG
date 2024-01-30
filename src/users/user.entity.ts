@@ -2,7 +2,7 @@ import { AssociationTwo } from 'src/association-two/entities/association-two.ent
 import { AssociationOne } from 'src/association_one/entities/association_one.entity';
 import { Person } from 'src/persons/person.entity';
 import { Role } from 'src/roles/entities/role.entity';
-import {Entity,Column,PrimaryGeneratedColumn, BaseEntity, OneToMany, JoinColumn, OneToOne, BeforeInsert} from 'typeorm'
+import {Entity,Column,PrimaryGeneratedColumn, BaseEntity, OneToMany, JoinColumn, OneToOne, ManyToOne, BeforeInsert} from 'typeorm'
 import * as bcrypt from 'bcrypt';
 
 @Entity('users')
@@ -13,10 +13,10 @@ export class User extends BaseEntity
     @PrimaryGeneratedColumn()
     id:number;
 
-    @Column({type:"varchar",length:25})
+    @Column({type:"varchar"})
     email:string;
 
-    @Column({type:"varchar",length:25})
+    @Column({type:"varchar"})
     password: string;
 
     @OneToMany(type => AssociationOne, association_one => association_one.users)
@@ -32,9 +32,9 @@ export class User extends BaseEntity
     @JoinColumn()
     persons:Person;
 
-    @OneToOne(type => Role, role => role.users)
+    @ManyToOne(type => Role, role => role.users)
     @JoinColumn()
-    role:Role;
+    role:Role[];
 
     @BeforeInsert()
     async hashPassword() {

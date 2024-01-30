@@ -21,7 +21,7 @@ export class Person extends BaseEntity{
     @Column({type:"varchar" ,length: 15, })
     phone: string
 
-    @Column({type:"varchar" ,length: 50, })
+    @Column({type:"varchar" ,length: 250, })
     address: string
 
     @OneToOne(type => User, users => users.persons)

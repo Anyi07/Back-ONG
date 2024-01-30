@@ -17,31 +17,31 @@ export class Project {
     @PrimaryGeneratedColumn()
     id:number;
 
-    @Column({type:"varchar",length:50})
+    @Column({type:"varchar",length:250})
     projectName:string;
 
-    @Column({type:"varchar",length:10})
+    @Column({type:"varchar",length:100})
     monetaryFound:string;
 
-    @Column({type:"varchar",length:50})
+    @Column({type:"varchar",length:250})
     establishment_details:string;
 
-    @Column({type:"float"})
-    latitude:number;
+    @Column({type:"varchar"}) //esto es varchar (avisar anyelit)
+    latitude:string;
 
-    @Column({type:"float"})
-    longitude:number;
+    @Column({type:"varchar"}) //esto es varchar (avisar anyelit)
+    longitude:string;
 
-    @Column({type:"int"})
+    @Column({type:"int",nullable:true})
     indirectBenef:number;
 
-    @Column({type:"int"})
-    recurringBenef:number;
+    @Column({type:"varchar"}) //esto es varchar (avisar anyelit)
+    recurringBenef:string;
 
-    @Column({type:"int"})
+    @Column({type:"int",nullable:true})
     disabledPopulation:number;
 
-    @Column({type:"int"})
+    @Column({type:"int",nullable:true})
     nativePopulation:number;
 
     @Column({type:"int"})
@@ -54,7 +54,6 @@ export class Project {
     @JoinColumn()
     register:Register[];
 
-
     @ManyToOne(type => Parroquia, parroquia =>parroquia.project)
     @JoinColumn()
     parroquia:Parroquia[];
@@ -66,7 +65,6 @@ export class Project {
     @OneToMany(type => AssociationTwo, associationTwo => associationTwo.project)
     @JoinColumn()
     associationTwo:AssociationTwo[];
-
     
     @OneToOne(type => FoodSafety, foodSafety => foodSafety.project)
     @JoinColumn()
