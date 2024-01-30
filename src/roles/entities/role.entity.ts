@@ -12,8 +12,9 @@ export class Role {
     @Column({type:"varchar",length:20})
     nameRole:string;
 
-    @OneToOne(type => User, users => users.role)
+
+    @OneToMany(type => User, users => users.roles)
     @JoinColumn()
-    users:User;
+    users:User[];
 
 }

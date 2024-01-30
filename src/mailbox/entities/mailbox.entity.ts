@@ -8,7 +8,7 @@ export class Mailbox extends BaseEntity{
     @PrimaryGeneratedColumn()
     id:number;
 
-    @Column({type:"varchar",length:15})
+    @Column({type:"varchar"})
     inputType:string;
 
 

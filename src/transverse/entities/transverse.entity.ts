@@ -2,47 +2,39 @@ import { BaseEntity } from 'src/base-entity';
 import { Project } from 'src/project/entities/project.entity';
 import{Entity,Column,PrimaryGeneratedColumn, PrimaryColumn, OneToOne, JoinColumn} from 'typeorm'
 
-@Entity('health')
-export class Health extends BaseEntity {
+@Entity('transverse')
+export class Transverse extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id:number;
 
     @Column({type:"varchar",nullable:true})
-    subaticity:string;
+    channelUsed:string;
 
     @Column({type:"varchar",nullable:true})
-    criticalServices:string;
+    topicsAddressed:string;
 
     @Column({type:"int",nullable:true})
-    girls0to5:number;
+    girls0to17T:number;
 
     @Column({type:"int",nullable:true})
-    boys0to5:number;
+    boys0to17T:number;
 
     @Column({type:"int",nullable:true})
-    girls6to19:number;
+    women18to59T:number;
 
     @Column({type:"int",nullable:true})
-    boys6to19:number;
+    men18to59T:number;
 
     @Column({type:"int",nullable:true})
-    women20to64:number;
+    menOlderThan60T:number;
 
     @Column({type:"int",nullable:true})
-    men20to64:number;
+    womenOlderThan60T:number;
 
-    @Column({type:"int",nullable:true})
-    menOlderThan65:number;
-
-    @Column({type:"int",nullable:true})
-    womenOlderThan65:number;
-
-
-    @OneToOne(type => Project, project => project.health)
+    @OneToOne(type => Project, project => project.transverse)
     @JoinColumn()
     project:Project[];
 
-
-
+    
 }

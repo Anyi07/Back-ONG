@@ -3,10 +3,10 @@ import { IsString} from "class-validator"
 export class createUserDto{
 
     @IsString()
-    readonly email:string;
+    email:string;
 
     @IsString()
-    readonly password:string;
+     password:string;
 
 
 }

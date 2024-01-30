@@ -2,56 +2,50 @@ import { BaseEntity } from 'src/base-entity';
 import { Project } from 'src/project/entities/project.entity';
 import{Entity,Column,PrimaryGeneratedColumn, PrimaryColumn, OneToOne, JoinColumn} from 'typeorm'
 
-@Entity('education')
-export class Education extends BaseEntity {
+@Entity('nutrition')
+export class Nutrition extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id:number;
 
     @Column({type:"int",nullable:true})
-    girls0to2E:number;
+    girls0to5M:number;
 
     @Column({type:"int",nullable:true})
-    boys0to2E:number;
+    boys0to5M:number;
 
     @Column({type:"int",nullable:true})
-    girls3to5E:number;
+    girls6to59m:number;
 
     @Column({type:"int",nullable:true})
-    boys3to5E:number;
+    boys6to59M:number;
 
     @Column({type:"int",nullable:true})
-    girls6to11E:number;
+    girls5to15:number;
 
     @Column({type:"int",nullable:true})
-    boys6to11E:number;
+    boys5to15:number;
+
 
     @Column({type:"int",nullable:true})
-    girls12to17E:number;
+    women18to59N:number;
 
     @Column({type:"int",nullable:true})
-    boys12to17E:number;
+    men18to59N:number;
 
     @Column({type:"int",nullable:true})
-    girls18to19E:number;
+    pregnantGirls:number;
 
     @Column({type:"int",nullable:true})
-    boys18to19E:number;
-
-    @Column({type:"int",nullable:true})
-    women20to64E:number;
-
-    @Column({type:"int",nullable:true})
-    men20to64E:number;
-
-    @Column({type:"int",nullable:true})
-    menOlderThan60E:number;
-
-    @Column({type:"int",nullable:true})
-    womenOlderThan60E:number;
+    pregnantWomen:number;
     
+    @Column({type:"int",nullable:true})
+    lactatingGirls:number;
 
-    @OneToOne(type => Project, project => project.education)
+     @Column({type:"int",nullable:true})
+     lactatingWomen:number;
+
+    @OneToOne(type => Project, project => project.nutrition)
     @JoinColumn()
     project:Project[];
 

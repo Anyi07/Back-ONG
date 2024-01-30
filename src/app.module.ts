@@ -20,6 +20,12 @@ import { AssociationTwoModule } from './association-two/association-two.module';
 import { RolesModule } from './roles/roles.module';
 import { AuthModule } from './auth/auth.module';
 import { NestFactory } from '@nestjs/core';
+import { HostingModule } from './hosting/hosting.module';
+import { NutritionModule } from './nutrition/nutrition.module';
+import { ProtectionModule } from './protection/protection.module';
+import { TransverseModule } from './transverse/transverse.module';
+import { ChildProtectionModule } from './child-protection/child-protection.module';
+import { VbgProtectionModule } from './vbg-protection/vbg-protection.module';
 
 @Module({
   imports: [ TypeOrmModule.forRoot(config),
@@ -38,7 +44,13 @@ import { NestFactory } from '@nestjs/core';
     AssociationOneModule,
     AssociationTwoModule,
     RolesModule,
-    AuthModule],
+    AuthModule,
+    HostingModule,
+    NutritionModule,
+    ProtectionModule,
+    TransverseModule,
+    ChildProtectionModule,
+    VbgProtectionModule],
   controllers: [AppController],
   providers: [AppService],
 })

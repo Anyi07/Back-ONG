@@ -9,24 +9,29 @@ export class FoodSafety extends BaseEntity{
     @PrimaryGeneratedColumn()
     id:number;
     
+    @Column({type:"int",nullable:true})
+    centersServed:number;
 
-    @Column({type:"int"})
+    @Column({type:"int",nullable:true})
+    assistedLiving:number;
+
+    @Column({type:"int",nullable:true})
     girls0to17F:number;
 
-    @Column({type:"int"})
+    @Column({type:"int",nullable:true})
     boys0to17F:number;
 
     
-    @Column({type:"int"})
+    @Column({type:"int",nullable:true})
     women18to59F:number;
 
-    @Column({type:"int"})
+    @Column({type:"int",nullable:true})
     men18to59F:number;
 
-    @Column({type:"int"})
+    @Column({type:"int",nullable:true})
     menOlderThan60F:number;
 
-    @Column({type:"int"})
+    @Column({type:"int",nullable:true})
     womenOlderThan60F:number;
     
 

@@ -12,16 +12,16 @@ export class Person extends BaseEntity{
     @Column({unique:true, type:"varchar"})
     cedula:number
 
-    @Column({type:"varchar" ,length: 25, })
+    @Column({type:"varchar" })
     first_name: string
 
-    @Column({type:"varchar" ,length: 25, })
+    @Column({type:"varchar" })
     last_name: string
 
-    @Column({type:"varchar" ,length: 15, })
+    @Column({type:"varchar"  })
     phone: string
 
-    @Column({type:"varchar" ,length: 50, })
+    @Column({type:"varchar"  })
     address: string
 
     @OneToOne(type => User, users => users.persons)
