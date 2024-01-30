@@ -66,9 +66,6 @@ export class Project {
     directBenef:string;
     
     @Column({type:"varchar",nullable:true})
-    achievedUnity:string;
-    
-    @Column({type:"varchar",nullable:true})
     startDate:string;
 
     @Column({type:"varchar",nullable:true})
