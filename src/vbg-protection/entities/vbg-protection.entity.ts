@@ -49,7 +49,7 @@ export class VbgProtection  extends BaseEntity {
 
     @Column({type:"int",nullable:true})
     womenOlderThan60V:number;
-
+    
     @OneToOne(type => Project, project => project.vgbprotection)
     @JoinColumn()
     project:Project[];
