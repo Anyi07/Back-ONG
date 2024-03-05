@@ -17,7 +17,7 @@ export class VbgProtectionService {
     }
 
     async getvgbProtections(){
-      const vgbprotection = this.vgbprotectionRepository.createQueryBuilder('vgbprotection').leftJoinAndSelect("vgbprotection.project","vgb")
+      const vgbprotection = this.vgbprotectionRepository.createQueryBuilder('vgbprotection').leftJoinAndSelect("vgbprotection.project","vgbp")
 
       return await vgbprotection.getMany()
       
@@ -41,3 +41,4 @@ export class VbgProtectionService {
       return this.vgbprotectionRepository.delete({id});
     }
 }
+

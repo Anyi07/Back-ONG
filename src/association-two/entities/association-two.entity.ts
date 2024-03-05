@@ -10,14 +10,17 @@ export class AssociationTwo {
     @PrimaryGeneratedColumn()
     id:number;
 
-    @Column({type:"varchar"})
+    @Column({type:"varchar",nullable:true})
     positionA: string;
 
-    @Column({type:"varchar"})
+    @Column({type:"varchar",nullable:true})
     cluster: string;
 
-    @Column({type:"varchar"})
+    @Column({type:"varchar",nullable:true})
     desiredNumber: number;
+
+    @Column({type:"varchar",nullable:true})
+    targetNumberPerson: number;
 
     @ManyToOne(type => Project, project => project.associationTwo)
     @JoinColumn()
