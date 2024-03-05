@@ -33,8 +33,8 @@ export class VbgProtectionController {
   }
 
   @Patch(':id')
-  updatevgbProtection(@Param('id',ParseIntPipe) id:number,@Body() vgbprotection: UpdateVbgProtectionDto){
-      return this.vbgProtectionService.updatevgbProtection(id, vgbprotection)
+  updatevgbProtection(@Param('id',ParseIntPipe) id:number,@Body() vbgprotection: UpdateVbgProtectionDto){
+      return this.vbgProtectionService.updatevgbProtection(id,vbgprotection )
 
   }
 }
