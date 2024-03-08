@@ -33,7 +33,7 @@ export class FoodSafety extends BaseEntity{
 
     @Column({type:"int",nullable:true})
     womenOlderThan60F:number;
-    
+
 
     @OneToOne(type => Project, project => project.foodSafety)
     @JoinColumn()

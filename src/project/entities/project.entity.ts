@@ -23,11 +23,11 @@ export class Project {
     @PrimaryGeneratedColumn()
     id:number;
     
-    @Column({type:"varchar",nullable:true})
-    reportDate:string;
+    @Column({type:'date',nullable:true})
+    reportDate:Date;
 
     @Column({type:"varchar",nullable:true})
-    reportedMonth:string;
+    reportedMonth:Date;
 
     @Column({type:"varchar",nullable:true})
     projectName:string;
@@ -59,17 +59,20 @@ export class Project {
     @Column({type:"varchar",nullable:true})
     sectorialActivityIndicator:string;
 
-    @Column({type:"varchar",nullable:true})
-    sectorialActivityIndicatorReached:string;
+    @Column({type:"int",nullable:true})
+    sectorialActivityIndicatorReached:number;
 
     @Column({type:"varchar",nullable:true})
     directBenef:string;
     
     @Column({type:"varchar",nullable:true})
-    startDate:string;
+    achievedUnity:string;
+    
+    @Column({type:'date',nullable:true})
+    startDate:Date;
 
-    @Column({type:"varchar",nullable:true})
-    endDate:string;
+    @Column({type:'date',nullable:true})
+    endDate:Date;
 
     @Column({type:"varchar",nullable:true})
     projectStatus:string;

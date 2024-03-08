@@ -29,8 +29,8 @@ export class VbgProtection  extends BaseEntity {
     @Column({type:"int",nullable:true})
     girls10to14V:number;
 
-    @Column({type:"int",nullable:true})
-    boys16to14V:number;
+    @Column({type:"int",nullable:true}) //cambiado de 16 a 10
+    boys10to14V:number;
 
     @Column({type:"int",nullable:true})
     girls15to19V:number;
@@ -49,7 +49,7 @@ export class VbgProtection  extends BaseEntity {
 
     @Column({type:"int",nullable:true})
     womenOlderThan60V:number;
-
+    
     @OneToOne(type => Project, project => project.vgbprotection)
     @JoinColumn()
     project:Project[];

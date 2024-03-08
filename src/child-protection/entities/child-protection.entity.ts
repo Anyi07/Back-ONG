@@ -76,7 +76,7 @@ export class ChildProtection extends BaseEntity {
     boys12to13C:number;
 
     @Column({type:"int",nullable:true})
-    girls1to17C:number;
+    girls14to17C:number; //cambio de 1 a 14
 
     @Column({type:"int",nullable:true})
     boys14to17C:number;
