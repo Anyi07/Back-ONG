@@ -18,8 +18,8 @@ export class UsersService {
 
 
       async getUsers(){
-        const user = this.userRepository.createQueryBuilder('user').leftJoinAndSelect("user.persons","ps").leftJoinAndSelect("user.role","rs")
-                                                                  
+        const user = this.userRepository.createQueryBuilder('user').leftJoinAndSelect("user.persons","ps")
+      
 
 
         return await user.getMany()
@@ -41,6 +41,14 @@ export class UsersService {
       async findOneByEmail(email: string) {
         return await this.userRepository.findOneBy({ email });
       }
+
+      findOneByEmailWithPassword(email: string) {
+        return this.userRepository.findOne({
+          where: { email },
+          select: ['id', 'email', 'password', 'role'],
+        });
+      }
+      
 
       updateUser(id: number,user:UpdateUserDto ) {
         return this.userRepository.update({id},user);
