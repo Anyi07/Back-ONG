@@ -1,10 +1,12 @@
-import { Controller, Post,Body,Get,Patch,Param, ParseIntPipe ,Delete} from '@nestjs/common';
+import { Controller, Post,Body,Get,Patch,Param, ParseIntPipe ,Delete, UseGuards, Request} from '@nestjs/common';
 import { createUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
 import { promises } from 'dns';
 import { threadId } from 'worker_threads';
 import { UpdateUserDto } from './dto/update-user.dto';
+
+import { RolesGuard } from 'src/auth/guard/roles.guard';
 
 
 @Controller('users')
@@ -49,4 +51,5 @@ export class UsersController {
     }
 
 
+    
 }

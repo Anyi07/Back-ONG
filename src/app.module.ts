@@ -17,7 +17,6 @@ import { FoodSafetyModule } from './food_safety/food_safety.module';
 import { EducationModule } from './education/education.module';
 import { AssociationOneModule } from './association_one/association_one.module';
 import { AssociationTwoModule } from './association-two/association-two.module';
-import { RolesModule } from './roles/roles.module';
 import { AuthModule } from './auth/auth.module';
 import { NestFactory } from '@nestjs/core';
 import { HostingModule } from './hosting/hosting.module';
@@ -43,7 +42,6 @@ import { VbgProtectionModule } from './vbg-protection/vbg-protection.module';
     EducationModule,
     AssociationOneModule,
     AssociationTwoModule,
-    RolesModule,
     AuthModule,
     HostingModule,
     NutritionModule,

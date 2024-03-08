@@ -1,9 +1,9 @@
 import { AssociationTwo } from 'src/association-two/entities/association-two.entity';
 import { AssociationOne } from 'src/association_one/entities/association_one.entity';
 import { Person } from 'src/persons/person.entity';
-import { Role } from 'src/roles/entities/role.entity';
 import {Entity,Column,PrimaryGeneratedColumn, BaseEntity, OneToMany, JoinColumn, OneToOne, BeforeInsert, ManyToOne} from 'typeorm'
 import * as bcrypt from 'bcrypt';
+import { Role } from 'src/auth/enums/role.enum';
 
 @Entity('users')
 
@@ -16,8 +16,12 @@ export class User extends BaseEntity
     @Column({type:"varchar"})
     email:string;
 
-    @Column({type:"varchar"})
+    @Column({type:"varchar", nullable: false, select: false })
     password: string;
+
+    @Column({type: 'enum', enum:Role, default: Role.USER})
+    role: string;
+
 
     @OneToMany(type => AssociationOne, association_one => association_one.users)
     @JoinColumn()
@@ -28,10 +32,7 @@ export class User extends BaseEntity
     @JoinColumn()
     associationTwo:AssociationTwo[];
 
-    @ManyToOne(type => Role, roles=> roles.users)
-    @JoinColumn()
-    roles:Role[];
-
+  
     @OneToOne(type => Person, persons => persons.users)
     @JoinColumn()
     persons:Person;
