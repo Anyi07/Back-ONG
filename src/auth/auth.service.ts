@@ -57,6 +57,7 @@ export class AuthService {
 
     return {
       email: user.email,
+      password :user.password
     };
   }
 }

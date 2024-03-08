@@ -22,6 +22,25 @@ export class AssociationTwo {
     @Column({type:"varchar",nullable:true})
     targetNumberPerson: number;
 
+    @Column({type:"varchar",nullable:true})
+    projectsToCulminateYearly: number;
+
+    @Column({type:"varchar",nullable:true})
+    projectstoCulminateMonthly: number;
+
+    @Column({type:"varchar",nullable:true})
+    peopleToAssistYearly: number;
+
+    @Column({type:"varchar",nullable:true})
+    peopleToAssistMonthly: number;
+
+    @Column({type:"varchar",nullable:true})
+    attendedCoursesMonthly: number;
+
+    @Column({type:"varchar",nullable:true})
+    attendedCoursesYearly: number;
+
+
     @ManyToOne(type => Project, project => project.associationTwo)
     @JoinColumn()
     project:Project[];

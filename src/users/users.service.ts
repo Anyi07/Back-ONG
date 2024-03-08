@@ -18,11 +18,11 @@ export class UsersService {
 
 
       async getUsers(){
-        const user = this.userRepository.createQueryBuilder('user').leftJoinAndSelect("user.persons","ps")
+        const result = this.userRepository.createQueryBuilder('users').leftJoinAndSelect('users.persons','ps')
       
 
 
-        return await user.getMany()
+        return await  result.getMany()
        
       }
     
