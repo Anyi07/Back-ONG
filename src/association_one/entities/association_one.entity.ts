@@ -13,7 +13,7 @@ export class AssociationOne extends BaseEntity {
     id:number;
 
 
-    @Column({type:"varchar",length:500})
+    @Column({type:"varchar"}) //se quito el limite de caracteres para caracteres practicos de brutalidad del usuario
     commentA:string;
 
 
