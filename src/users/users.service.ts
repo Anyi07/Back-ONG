@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { QueryBuilder, Repository } from 'typeorm';
 import { createUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Role } from 'src/auth/enums/role.enum';
+import { identity } from 'rxjs';
 
 @Injectable()
 export class UsersService {
@@ -25,6 +27,22 @@ export class UsersService {
         return await  result.getMany()
        
       }
+
+      async findAllUsersWithPersons(): Promise<User[]> {
+        return this.userRepository
+          .createQueryBuilder('users')
+          .leftJoinAndSelect('users.persons', 'psn')
+          .getMany();
+     }
+
+      async findUserWithPerson(usersId: number): Promise<User> {
+        return this.userRepository
+          .createQueryBuilder('users')
+          .leftJoinAndSelect('users.persons', 'persons')
+          .where('users.id = :usersId', { usersId })
+          .getOne();
+     }
+
     
       async getUser(id: number) {
         return this.userRepository.findOne({
@@ -48,7 +66,8 @@ export class UsersService {
           select: ['id', 'email', 'password', 'role'],
         });
       }
-      
+
+     
 
       updateUser(id: number,user:UpdateUserDto ) {
         return this.userRepository.update({id},user);

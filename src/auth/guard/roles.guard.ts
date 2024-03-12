@@ -19,6 +19,8 @@ export class RolesGuard implements CanActivate {
       return true;
     }
 
+
+    
     const { user } = context.switchToHttp().getRequest();
 // si es administrador lo dejamos hacer lo que sea :D
 if (user.role === Role.SUPERUSER) return true;
@@ -26,5 +28,6 @@ if (user.role === Role.SUPERUSER) return true;
 
     return user.role === requiredRoles;
   }
+  
   
 }

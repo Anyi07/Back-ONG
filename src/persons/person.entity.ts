@@ -24,7 +24,7 @@ export class Person extends BaseEntity{
     @Column({type:"varchar"  })
     address: string
 
-    @OneToOne(type => User, users => users.persons)
+    @OneToOne(type => User, users => users.persons,{cascade:true})
     @JoinColumn()
     users:User;
 
