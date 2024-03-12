@@ -33,7 +33,7 @@ export class User extends BaseEntity
     associationTwo:AssociationTwo[];
 
   
-    @OneToOne(type => Person, persons => persons.users,{cascade:true})
+    @OneToOne(type => Person, persons => persons.users,{eager:true})
     @JoinColumn()
     persons:Person;
   

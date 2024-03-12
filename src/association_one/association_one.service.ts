@@ -19,7 +19,7 @@ export class AssociationOneService {
 
     async  getAssociationOnes(){
         const association = this.associationOneRepositorio.createQueryBuilder('association').leftJoinAndSelect("association.mailbox","mb")
-        .leftJoinAndSelect("association.project","pj").leftJoinAndSelect("association.users","usr").leftJoinAndSelect("association.persons","pers")
+        .leftJoinAndSelect("association.users","usr").leftJoinAndSelect("association.persons","pers")
                                                                   
 
 

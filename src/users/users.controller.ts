@@ -1,4 +1,4 @@
-import { Controller, Post,Body,Get,Patch,Param, ParseIntPipe ,Delete, UseGuards, Request} from '@nestjs/common';
+import { Controller, Post,Body,Get,Patch,Param, ParseIntPipe ,Delete, UseGuards, Request, Put, NotFoundException} from '@nestjs/common';
 import { createUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
@@ -7,6 +7,9 @@ import { threadId } from 'worker_threads';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 import { RolesGuard } from 'src/auth/guard/roles.guard';
+import { get } from 'http';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
+import { Role } from 'src/auth/enums/role.enum';
 
 
 @Controller('users')
@@ -20,6 +23,18 @@ export class UsersController {
     getUsers():Promise<User[]>{
         return this.usersService.getUsers();
     }
+
+    @Get('/with-persons')
+    async getAllUsersWithPersons(): Promise<User[]> {
+    return this.usersService.findAllUsersWithPersons();
+ }
+
+    @Get(':id/person')
+    async getUserWithPerson(@Param('id') usersId: number): Promise<User> {
+       return this.usersService.findUserWithPerson(usersId);
+    }
+
+
 
     @Get(':id')
     getUser(@Param('id',ParseIntPipe) id: number):Promise<User>{
@@ -37,6 +52,8 @@ export class UsersController {
   async signUp(@Body() createUserDto: createUserDto): Promise<User>{
     return this.usersService.createUser(createUserDto);
   }
+
+
 
     @Delete(':id')
     deleteUSer(@Param('id',ParseIntPipe) id:number){

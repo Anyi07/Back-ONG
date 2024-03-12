@@ -110,9 +110,7 @@ export class Project {
     @JoinColumn()
     parroquia:Parroquia[];
 
-    @OneToMany(type => AssociationOne, association_one => association_one.project)
-    @JoinColumn()
-    association_one:AssociationOne[];
+
 
     @OneToMany(type => AssociationTwo, associationTwo => associationTwo.project)
     @JoinColumn()
