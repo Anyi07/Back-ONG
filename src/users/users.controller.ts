@@ -19,6 +19,19 @@ export class UsersController {
     constructor(private usersService:UsersService){}
 
 
+    @Post('/create')
+    async createUserAndPerson(
+       @Body('email') email: string,
+       @Body('password') password: string,
+       @Body('cedula') cedula: number,
+       @Body('first_name') first_name: string,
+       @Body('last_name') last_name: string,
+       @Body('phone') phone: string,
+       @Body('address') address: string,
+    ) {
+       return this.usersService.createUserAndPerson(email, password, cedula,first_name,last_name,phone,address);
+    }
+
     @Get()
     getUsers():Promise<User[]>{
         return this.usersService.getUsers();
@@ -34,7 +47,10 @@ export class UsersController {
        return this.usersService.findUserWithPerson(usersId);
     }
 
-
+    @Put(':id/role')
+    async changeRole(@Param('id') userId: number, @Body('role') newRole: Role) {
+      return this.usersService.changeRole(userId, newRole);
+    }
 
     @Get(':id')
     getUser(@Param('id',ParseIntPipe) id: number):Promise<User>{
