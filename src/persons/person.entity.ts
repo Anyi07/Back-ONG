@@ -10,7 +10,7 @@ export class Person extends BaseEntity{
     id:number
 
     @Column({unique:true, type:"varchar"})
-    cedula:number
+    cedula:string
 
     @Column({type:"varchar" })
     first_name: string
