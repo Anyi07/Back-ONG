@@ -23,7 +23,7 @@ export class UsersController {
     async createUserAndPerson(
        @Body('email') email: string,
        @Body('password') password: string,
-       @Body('cedula') cedula: number,
+       @Body('cedula') cedula: string,
        @Body('first_name') first_name: string,
        @Body('last_name') last_name: string,
        @Body('phone') phone: string,
