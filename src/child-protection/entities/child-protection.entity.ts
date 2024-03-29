@@ -15,7 +15,7 @@ export class ChildProtection extends BaseEntity {
     pregnantWomenC:number;
     
     @Column({type:"int",nullable:true})
-    abandonmentPerson :number;
+    abandonmentPerson:number;
 
     @Column({type:"int",nullable:true})
     legalProtectionP:number;
