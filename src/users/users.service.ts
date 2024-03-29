@@ -26,7 +26,7 @@ export class UsersService {
         return this.userRepository.save(newUser);
       }
 
-      async createUserAndPerson(email: string, password: string, cedula:string,first_name:string,last_name:string,phone:string,address:string): Promise<User> {
+      async createUserAndPerson(email: string, password: string, cedula:string, first_name:string, last_name:string, phone:string, address:string): Promise<User> {
         const person = new Person();
         person.cedula = cedula;
         person.first_name = first_name;
