@@ -4,6 +4,7 @@ import { Person } from 'src/persons/person.entity';
 import {Entity,Column,PrimaryGeneratedColumn,BaseEntity, OneToMany, JoinColumn, OneToOne, BeforeInsert, ManyToOne} from 'typeorm'
 import * as bcrypt from 'bcrypt';
 import { Role } from 'src/auth/enums/role.enum';
+import { Mailbox } from 'src/mailbox/entities/mailbox.entity';
 
 @Entity('users')
 
@@ -22,10 +23,9 @@ export class User extends BaseEntity{
     role: string;
 
 
-    @OneToMany(type => AssociationOne, association_one => association_one.users)
-    @JoinColumn()
-    association_one:AssociationOne[];
-
+@OneToMany(type => Mailbox, mailbox => mailbox.users)
+@JoinColumn()
+mailbox:Mailbox[];
 
     @OneToMany(type => AssociationTwo, associationTwo => associationTwo.users)
     @JoinColumn()

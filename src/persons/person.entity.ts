@@ -1,5 +1,6 @@
 import { AssociationOne } from "src/association_one/entities/association_one.entity";
 import { BaseEntity } from "src/base-entity";
+import { Mailbox } from "src/mailbox/entities/mailbox.entity";
 import { User } from "src/users/user.entity";
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 
@@ -31,5 +32,9 @@ export class Person extends BaseEntity{
     @OneToMany(type => AssociationOne, association_one => association_one.persons)
     @JoinColumn()
     association_one:AssociationOne[]; 
+
+    @OneToMany(type => Mailbox, mailbox => mailbox.persons)
+    @JoinColumn()
+    mailbox:Mailbox[]; 
 
 }

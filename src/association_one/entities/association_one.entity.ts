@@ -23,9 +23,7 @@ export class AssociationOne extends BaseEntity {
     @JoinColumn()
     mailbox:Mailbox[];
 
-    @ManyToOne(type => User, users=> users.association_one)
-    @JoinColumn()
-    users:User[];
+ 
 
     @ManyToOne(type => Person, persons=> persons.association_one)
     @JoinColumn()

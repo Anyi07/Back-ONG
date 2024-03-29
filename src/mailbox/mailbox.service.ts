@@ -19,7 +19,10 @@ export class MailboxService {
     }
 
     async getMailboxs(){
-      return this.mailboxRepository.find()
+      const mailbox = this.mailboxRepository.createQueryBuilder('mailbox')
+      .leftJoinAndSelect("mailbox.users","userm").leftJoinAndSelect("mailbox.persons","persm")
+
+      return await mailbox.getMany()
       
     }
   
