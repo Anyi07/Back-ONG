@@ -15,6 +15,9 @@ export class Mailbox extends BaseEntity{
     inputType:string;
 
     @Column({type:"varchar",nullable:true})
+    inputClass:string;
+
+    @Column({type:"varchar",nullable:true})
     inputStatus:string;
 
     @Column({type:"varchar",nullable:true})

@@ -1,7 +1,8 @@
 import { AssociationTwo } from 'src/association-two/entities/association-two.entity';
 import { AssociationOne } from 'src/association_one/entities/association_one.entity';
 import { Person } from 'src/persons/person.entity';
-import {Entity,Column,PrimaryGeneratedColumn,BaseEntity, OneToMany, JoinColumn, OneToOne, BeforeInsert, ManyToOne} from 'typeorm'
+import { BaseEntity } from "src/base-entity";
+import {Entity,Column,PrimaryGeneratedColumn, OneToMany, JoinColumn, OneToOne, BeforeInsert, ManyToOne} from 'typeorm'
 import * as bcrypt from 'bcrypt';
 import { Role } from 'src/auth/enums/role.enum';
 import { Mailbox } from 'src/mailbox/entities/mailbox.entity';

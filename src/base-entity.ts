@@ -5,10 +5,10 @@ export class BaseEntity{
 @PrimaryGeneratedColumn()
 id?:number;
 
-@CreateDateColumn({nullable:true})
+@CreateDateColumn({type: "timestamp", nullable:true})
 createdAt?:Date;
 
-@CreateDateColumn({nullable:true})
+@CreateDateColumn({type: "timestamp", nullable:true})
 updateAt?:Date;
 
 
