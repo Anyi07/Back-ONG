@@ -36,6 +36,9 @@ export class Project {
     monetaryFound:string;
 
     @Column({type:"varchar",nullable:true})
+    humanitaryResponsePlan:string;
+
+    @Column({type:"varchar",nullable:true})
     establishmentType:string;
 
     @Column({type:"varchar",nullable:true})
